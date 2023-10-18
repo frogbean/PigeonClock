@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "alert": "^6.0.0",
     "suncalc": "^1.9.0"
   }
 }
