@@ -58,3 +58,5 @@ if(sunAng >= 0) {
         return -0.5 - ((-1 + phase) / 2);
 }
 ```
+
+The program when running also displays information in the console log (Sun angle ⊾ and the Percentage value)
