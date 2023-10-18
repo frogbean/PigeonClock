@@ -6,9 +6,5 @@
     "Pigeon dinner" : {
         "description" : "Time to feed the pigeons their dinner!",
         "when" : 0.75
-    },
-    "Test" : {
-        "description" : "This is a test",
-        "when" : 0.87
     }
 }
