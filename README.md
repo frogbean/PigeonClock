@@ -1,5 +1,10 @@
 # PigeonClock
 
+`git clone https://github.com/frogbean/PigeonClock`
+`cd PigeonClock`
+`npm install`
+`node ./main.js`
+
 Create a json with your coordinates
 
 Example 
