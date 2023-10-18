@@ -1,0 +1,10 @@
+{
+    "Pigeon breakfast" : {
+        "message" : "Time to feed the pigeons!",
+        "when" : 0.25
+    },
+    "Pigeon teatime" : {
+        "message" : "Time to feed the pigeons!",
+        "when" : 0.75
+    }
+}
