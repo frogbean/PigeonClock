@@ -54,7 +54,6 @@ function pClock() {
 }
 
 function trigger(alarmName) {
-    console.log("triggering", alarmName, eventer)
     eventer[alarmName].triggered = true;
     const event = alarms[alarmName];
     alert(`${alarmName}: ${event.description}`);
@@ -67,34 +66,36 @@ function eventer() {
         if(eventer[alarmName]?.triggered) return;
         const event = alarms[alarmName];
         const day = event.when > 0;
-        console.log(day, event.when, clock, parseFloat(event.when) > clock);
         if(day && event.when < clock) trigger(alarmName); 
         if(!day && event.when > clock) trigger(alarmName);
         if(day && clock < 0) eventer[alarmName].triggered = false;
-        if(!day && clock < 0) eventer[alarmName].triggered = false;
+        if(!day && clock > 0) eventer[alarmName].triggered = false;
     }
 }
 
 function alert(message) {
-    alert.spawnSync ??= require('child_process').spawnSync;
-    alert.os ??= require('os')?.platform();
-    alert.handler ??= ({
-        "win32" : message =>
-            alert.spawnSync("powershell.exe", [`
-                Add-Type -AssemblyName PresentationCore,PresentationFramework;
-                [System.Windows.MessageBox]::Show('${message}');
-            `]) ,
-        "linux" : message => alert.spawnSync('zenity', ['--info', '--text', message]),
-        "macOS" : message => alert.spawnSync('osascript', ['-e', `display dialog "${message}"`])
-    })[alert.os];
     try {
-        if (alert.handler)
-            alert.handler(message);
-        else
-            console.error('Platform not recognized. Alert not supported on this platform.');
-    } catch (err) {
-        console.error(err);
-    }
+        globalThis._alert_statics ??= {
+            spawnSync: require('child_process')?.spawnSync,
+            os: require('os')?.platform(),
+            handler: {
+                "win32" : message =>
+                    _alert_statics.spawnSync("powershell.exe", [`
+                        Add-Type -AssemblyName PresentationCore,PresentationFramework;
+                        [System.Windows.MessageBox]::Show('${message}');
+                    `]),
+                "linux" : message => _alert_statics.spawnSync('zenity', ['--info', '--text', message]),
+                "macOS" : message => _alert_statics.spawnSync('osascript', ['-e', `display dialog "${message}"`])
+            }
+        }
+        try {
+
+            if (_alert_statics.handler[_alert_statics.os]) _alert_statics.handler[_alert_statics.os](message);
+            else console.warn('Platform not recognized. Alert not supported on this platform.');
+
+        } catch (err) { console.error(err); }
+
+    } catch (err) { console.error(err); }
 }
 
 setInterval(eventer, 250);

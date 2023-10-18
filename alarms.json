@@ -1,10 +1,14 @@
 {
     "Pigeon breakfast" : {
         "description" : "Time to feed the pigeons their breakfast!",
-        "when" : 0.25
+        "when" : 0.10
     },
     "Pigeon dinner" : {
         "description" : "Time to feed the pigeons their dinner!",
         "when" : 0.75
+    },
+    "Bedtime" : {
+        "description" : "Time to get of pc",
+        "when" : -0.2
     }
 }
