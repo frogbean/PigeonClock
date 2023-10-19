@@ -105,3 +105,6 @@ setInterval(()=>{
     console.log(sunAngle().toFixed(2), '⊾');
     console.log((pClock() * 100).toFixed(2), '%');
 }, 100);
+
+
+module.exports = { pClock };
