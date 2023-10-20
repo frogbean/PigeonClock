@@ -35,28 +35,7 @@ Now you can use `alarms.json` like so
     }
 }
 ```
-The when variable is a percentage value of the suns position throughout the sky. For example a value of 0.50 will be at solar noon, a value of -0.5 will be the middle of the night
-
-There is probably undefined behavoir with setting the value as 0 or -1 however 0.01 will be sunrise, 0.999 will be sunset, -0.001 will also be sunset, -0.999 will be sunrise as well
-
-The formulas for these calculations are here
-
-```js
-if(sunAng >= 0) {
-    const noon = suncalc.getTimes(new Date(), latitude, longitude).solarNoon;
-    const phase = sunAng / pClock.sunMax;
-    if(new Date() <= noon)
-        return phase / 2;
-    else 
-        return 0.5 + ((1 - phase) / 2);
-} else {
-    const unnoon = suncalc.getTimes(new Date(), latitude, longitude).nadir;
-    const phase = sunAng / pClock.sunMin;
-    if(new Date() <= unnoon)
-        return phase / 2;
-    else 
-        return -0.5 - ((-1 + phase) / 2);
-}
-```
-
-The program when running also displays information in the console log (Sun angle ⊾ and the Percentage value)
+The when variable is a percentage value of the suns position throughout the sky and into the night
+0.0 -> 1.0 is day time with 0.5 being solar noon, 1.0 -> 2.0 is night time with 1.5 being the darkest point of night
+The value loops around to 0 again when a new day starts (sunrise)
+The program has a test function that displays the sun angle ⊾ and the percentage value
