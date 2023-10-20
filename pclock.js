@@ -7,7 +7,7 @@ try {
     try {
         require("../coords.json");
     }  catch {
-    console.warn("You need to create a coords.json file containing your latitude and longitude values")
+    console.warn("You need  HELLO to create a coords.json file containing your latitude and longitude values")
     console.warn(`Example 
 
     {
