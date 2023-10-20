@@ -10,7 +10,7 @@ try {
         require(path);
         
     }  catch {
-    console.warn("You need  HELLO to create a coords.json file containing your latitude and longitude values")
+    console.warn("You need to create a coords.json file containing your latitude and longitude values")
     console.warn(`Example 
 
     {
@@ -18,7 +18,7 @@ try {
         "longitude" : 5
     }
 
-    Save it as coords.json`)
+    Save it as coords.json and !IMPORTANTLY! add that filename to your .gitignore`)
         process.exit(0);
     }
 }
