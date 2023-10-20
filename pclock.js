@@ -1,11 +1,14 @@
 const suncalc = require("suncalc");
 const alarms = require("./alarms.json");
 
+let path = "./coords.json";
 try {
-    require("./coords.json");
+    require(path);
 } catch {
     try {
-        require("../../coords.json");
+        path = "../../coords.json";
+        require(path);
+        
     }  catch {
     console.warn("You need  HELLO to create a coords.json file containing your latitude and longitude values")
     console.warn(`Example 
@@ -19,7 +22,7 @@ try {
         process.exit(0);
     }
 }
-const { latitude, longitude } = require("./coords.json");
+const { latitude, longitude } = require(path);
 
 function sunAngle(when = new Date()) {
     return (suncalc.getPosition(when, latitude, longitude).altitude * 100);
