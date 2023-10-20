@@ -2,5 +2,28 @@
   "dependencies": {
     "alert": "^6.0.0",
     "suncalc": "^1.9.0"
-  }
+  },
+  "name": "pigeonclock",
+  "description": "`git clone https://github.com/frogbean/PigeonClock`",
+  "version": "1.0.0",
+  "main": "pclock.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "test()"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frogbean/PigeonClock.git"
+  },
+  "keywords": [
+    "Clock",
+    "Sun",
+    "Position"
+  ],
+  "author": "frogbean",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/frogbean/PigeonClock/issues"
+  },
+  "homepage": "https://github.com/frogbean/PigeonClock#readme"
 }

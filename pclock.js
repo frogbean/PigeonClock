@@ -31,25 +31,28 @@ function sunAngleMin() {
     return sunAngle(unnoon);
 }
 
-function pClock() {
+function pClock(when = new Date()) {
     pClock.sunMax ??= sunAngleMax();
     pClock.sunMin ??= sunAngleMin();
-    const sunAng = sunAngle();
+    const sunAng = sunAngle(when);
 
     if(sunAng >= 0) {
-        const noon = suncalc.getTimes(new Date(), latitude, longitude).solarNoon;
+        const noon = suncalc.getTimes(when, latitude, longitude).solarNoon;
         const phase = sunAng / pClock.sunMax;
-        if(new Date() <= noon)
+        if(when <= noon)
             return phase / 2;
         else 
             return 0.5 + ((1 - phase) / 2);
     } else {
-        const unnoon = suncalc.getTimes(new Date(), latitude, longitude).nadir;
+        let unnoon;
+        if(when.getHours() > 0 && when.getHours() < 12) {
+            unnoon = suncalc.getTimes(when, latitude, longitude).nadir;
+        } else unnoon = suncalc.getTimes(new Date(when.getTime() + 1000*60*60*24), latitude, longitude).nadir;
         const phase = sunAng / pClock.sunMin;
-        if(new Date() <= unnoon)
-            return phase / 2;
+        if(when <= unnoon)
+            return 1.0 + (phase / 2);
         else 
-            return -0.5 - ((-1 + phase) / 2);
+            return 1.5 + ((1 - phase) / 2);
     }
 }
 
@@ -73,7 +76,7 @@ function eventer() {
     }
 }
 
-function alert(message) {
+function alert(message) { return;
     try {
         globalThis._alert_statics ??= {
             spawnSync: require('child_process')?.spawnSync,
@@ -98,13 +101,18 @@ function alert(message) {
     } catch (err) { console.error(err); }
 }
 
-setInterval(eventer, 250);
+function test() {
+    setInterval(eventer, 250);
+    let forwards = 0;
+    setInterval(()=>{
+        console.clear();
+        const date = new Date(Date.now() + forwards);
+        console.log(date);
+        console.log(sunAngle(date).toFixed(2), '⊾');
+        console.log((pClock(date)*100).toFixed(2), '%');
+        forwards += 1000 * 60 * 5
+    }, 100);
+}
 
-setInterval(()=>{
-    console.clear();
-    console.log(sunAngle().toFixed(2), '⊾');
-    console.log((pClock() * 100).toFixed(2), '%');
-}, 100);
-
-
+//test();
 module.exports = { pClock };
