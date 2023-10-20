@@ -4,16 +4,20 @@ const alarms = require("./alarms.json");
 try {
     require("./coords.json");
 } catch {
-console.warn("You need to create a coords.json file containing your latitude and longitude values")
-console.warn(`Example 
+    try {
+        require("../coords.json");
+    }  catch {
+    console.warn("You need to create a coords.json file containing your latitude and longitude values")
+    console.warn(`Example 
 
-{
-    "latitude" : 50,
-    "longitude" : 5
-}
+    {
+        "latitude" : 50,
+        "longitude" : 5
+    }
 
-Save it as coords.json`)
-    process.exit(0);
+    Save it as coords.json`)
+        process.exit(0);
+    }
 }
 const { latitude, longitude } = require("./coords.json");
 
